@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="DesarrolloVariedadesApp.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:DesarrolloVariedadesApp"
+    Shell.FlyoutBehavior="Flyout"
+    Shell.FlyoutWidth="220"
+    Shell.BackgroundColor="#001E60"
+    FlyoutBackgroundColor="#DFDFDF"
+    xmlns:home="clr-namespace:DesarrolloVariedadesApp.Views"
+    xmlns:view2="clr-namespace:DesarrolloVariedadesApp.Views.Edicion"
+    xmlns:view5="clr-namespace:DesarrolloVariedadesApp.Views.Configuracion"
+    Title="DesarrolloVariedadesApp"
+    >
+
+    <Shell.Resources>
+        <Style x:Key="FlyoutItemStyle" TargetType="Element">
+            <Setter Property="FlyoutItem.Title" Value="{Static Colors.Black}" />
+        </Style>
+    </Shell.Resources>
+
+    <FlyoutItem 
+        Title="Inicio" 
+        Style="{StaticResource FlyoutItemStyle}"
+        Icon="home.png"
+        Route="HomeView"
+        >
+        <ShellContent ContentTemplate="{DataTemplate home:HomeView}"/>
+    </FlyoutItem>
+
+    <FlyoutItem 
+        x:Name="catalogos"
+        Title="Catálogos"
+        Style="{StaticResource FlyoutItemStyle}"
+        Icon="edita.png"
+        Route="EdicionMain"        
+        >
+        <ShellContent ContentTemplate="{DataTemplate view2:EdicionMain}"/>
+    </FlyoutItem>
+
+    <FlyoutItem
+        x:Name="configuracion"
+        Title="Configuración"
+        Style="{StaticResource FlyoutItemStyle}"
+        Icon="configuracion.png"
+        Route="ConfiguracionMain"
+        >
+        <ShellContent ContentTemplate="{DataTemplate view5:ConfiguracionMain}"/>
+    </FlyoutItem>
+
+    <Shell.FlyoutFooter>
+        <Button
+            Text="Cerrar sesión"
+            Clicked="LogOutCommand"
+            Background="#3D3D3D"
+            TextColor="White"
+            CornerRadius="0"
+            />
+    </Shell.FlyoutFooter>
+</Shell>

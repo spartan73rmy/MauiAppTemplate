@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DesarrolloVariedadesApp.Views.Edicion.CultivoVariedad.CultivoVarBase"
+             Title="{Binding TitleText}">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem IconImageSource="list.png" Order="Primary" Text="Listado" Command="{Binding CambioListadoCommand}"/>
+        <ToolbarItem IconImageSource="nuevo.png" Order="Primary" Text="Nuevo" Command="{Binding CambioNuevoCommand}"/>
+    </ContentPage.ToolbarItems>
+
+    <ScrollView>
+        <StackLayout>
+            <ContentView Content="{Binding ContenidoContenedor}"/>
+        </StackLayout>
+    </ScrollView>
+</ContentPage>

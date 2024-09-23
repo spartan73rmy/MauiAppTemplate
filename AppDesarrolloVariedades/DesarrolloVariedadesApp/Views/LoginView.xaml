@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DesarrolloVariedadesApp.Views.LoginView"
+             Title="LoginView"
+             xmlns:controls="clr-namespace:DesarrolloVariedadesApp.Controls"
+             >
+
+    <ScrollView>
+        <FlexLayout Direction="Row" JustifyContent="SpaceEvenly" AlignItems="Start" Wrap="Wrap" >
+            <Grid HorizontalOptions="CenterAndExpand" Margin="20">
+                <StackLayout WidthRequest="300">
+                    <Label Text="Iniciar sesion" Style="{StaticResource SubHeadline}" />
+
+                    <StackLayout>
+                        <Label Text="Usuario:" FontAttributes="Bold" HorizontalOptions="Start" />
+
+                        <Border>
+                            <controls:CustomEntry Text="{Binding Usuario}" TextTransform="Default"/>
+                        </Border>
+                    </StackLayout>
+
+                    <StackLayout>
+                        <Label Text="Contraseña:" FontAttributes="Bold" HorizontalOptions="Start" />
+
+                        <Border>
+                            <controls:CustomEntry Text="{Binding Password}" IsPassword="True" TextTransform="Default"/>
+                        </Border>
+                    </StackLayout>
+
+                    <Button
+                        Text="Ingresar"
+                        Margin="0,10"
+                        HorizontalOptions="EndAndExpand"
+                        Command="{Binding IniciarSesionCommand}"
+                        />
+                </StackLayout>
+                
+                <ActivityIndicator IsRunning="{Binding Loading}" />
+            </Grid>
+
+            <StackLayout BackgroundColor="Black"  VerticalOptions="StartAndExpand"  FlexLayout.Grow="1"  >
+                <Image Margin="30"  Source="logo.png" MaximumWidthRequest="400" />
+            </StackLayout>
+        </FlexLayout>
+    </ScrollView>
+</ContentPage>

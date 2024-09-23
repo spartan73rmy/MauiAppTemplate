@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DesarrolloVariedadesApp.Views.ManejoFotografias.ListadoFotografiasView"
+             Title="Listado - Fotografias"
+             x:Name="FotosView"
+             >
+
+    <ScrollView Margin="8">
+        <StackLayout>
+            <!--Opciones-->
+            <StackLayout IsVisible="{Binding PermisoModificar}">
+                <HorizontalStackLayout HorizontalOptions="Center" Margin="0,8" IsVisible="{Binding EstadoBase}">
+                    <Label Text="Modificar" FontAttributes="Bold" Style="{StaticResource SubHeadline}" />
+
+                    <ImageButton Source="modify.png" Style="{StaticResource Icon}" Command="{Binding CambioModificarCommand}"/>
+                </HorizontalStackLayout>
+
+                <FlexLayout Direction="Row" JustifyContent="Center" AlignItems="Center" Wrap="Wrap" IsVisible="{Binding EstadoModificar}" Margin="0,8">
+                    <Label Text="Guardar Cambios" FontAttributes="Bold" Style="{StaticResource SubHeadline}" />
+
+                    <ImageButton Source="guardar2.png" Style="{StaticResource Icon}" Command="{Binding GuardarImagenesCommand}"/>
+
+                    <ImageButton Source="cancel2.png" Style="{StaticResource Icon}" Command="{Binding RegresarCambiosCommand}"/>
+                </FlexLayout>
+            </StackLayout>
+            
+            <ScrollView Orientation="Horizontal" BackgroundColor="AliceBlue" HorizontalOptions="Center" Margin="8">
+                <StackLayout HorizontalOptions="Start">
+                    <!--Normales-->
+                    <CollectionView ItemsSource="{Binding ImagenesList}" IsVisible="{Binding EstadoBase}">
+                        <CollectionView.Header>
+                            <StackLayout HorizontalOptions="StartAndExpand" HeightRequest="50" BackgroundColor="Black" Orientation="Horizontal" >
+                                <Label TextColor="White" Text="Fotografia" WidthRequest="120" Margin="0"/>
+
+                                <Label TextColor="White" Text="Comentario" WidthRequest="300" Margin="0"/>
+                            </StackLayout>
+                        </CollectionView.Header>
+
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <StackLayout>
+                                    <StackLayout Margin="0,10" Orientation="Horizontal" MinimumHeightRequest="40" HorizontalOptions="Center">
+                                        <Image 
+                                            x:Name="Elemento"
+                                            Aspect="AspectFit" 
+                                            Source="{Binding FullPath}" 
+                                            HeightRequest="100" 
+                                            WidthRequest="120"
+                                            IsEnabled="{Binding Activo}"
+                                            HorizontalOptions="CenterAndExpand"
+                                            >
+                                            <Image.GestureRecognizers>
+                                                <TapGestureRecognizer 
+                                                    CommandParameter="{x:Reference Elemento}" 
+                                                    Command="{Binding Source={x:Reference FotosView},Path=BindingContext.ImagenClickedCommand}"
+                                                    />
+                                            </Image.GestureRecognizers>
+                                        </Image>
+                                        
+                                        <Editor
+                                            Text="{Binding Comentario}"
+                                            IsEnabled="False"
+                                            FontSize="16"
+                                            VerticalOptions="Start"
+                                            AutoSize="TextChanges"
+                                            MaxLength="150"
+                                            WidthRequest="300"
+                                            TextColor="Black"
+                                            MinimumHeightRequest="100"
+                                            />
+                                    </StackLayout>
+
+                                    <BoxView HeightRequest="0.5" BackgroundColor="LightSlateGray"/>
+                                </StackLayout>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+
+                    <!--modificables-->
+                    <CollectionView ItemsSource="{Binding ImagenesList}" IsVisible="{Binding EstadoModificar}">
+                        <CollectionView.Header>
+                            <StackLayout HorizontalOptions="StartAndExpand" HeightRequest="50" BackgroundColor="Black" Orientation="Horizontal" >
+                                <Label TextColor="White" Text="Fotografia" WidthRequest="120" Margin="0"/>
+
+                                <Label TextColor="White" Text="Comentario" WidthRequest="300" Margin="8,0"/>
+
+                                <Label TextColor="White" Text="Opciones" WidthRequest="150" Margin="0"/>
+                            </StackLayout>
+                        </CollectionView.Header>
+
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <StackLayout>
+                                    <StackLayout Margin="0,10" Orientation="Horizontal" MinimumHeightRequest="40" HorizontalOptions="Center">
+                                        <Image 
+                                            x:Name="Elemento"
+                                            Aspect="AspectFit" 
+                                            Source="{Binding FullPath}" 
+                                            HeightRequest="100" 
+                                            WidthRequest="120"
+                                            IsEnabled="{Binding Activo}"
+                                            HorizontalOptions="CenterAndExpand"
+                                            >
+                                            <Image.GestureRecognizers>
+                                                <TapGestureRecognizer 
+                                                    CommandParameter="{x:Reference Elemento}" 
+                                                    Command="{Binding Source={x:Reference FotosView},Path=BindingContext.ImagenClickedCommand}"
+                                                    />
+                                            </Image.GestureRecognizers>
+                                        </Image>
+
+                                        <Editor
+                                            Text="{Binding Comentario}"
+                                            IsEnabled="{Binding Activo}"
+                                            FontSize="16"
+                                            VerticalOptions="Start"
+                                            AutoSize="TextChanges"
+                                            MaxLength="150"
+                                            WidthRequest="300"
+                                            TextColor="Black"
+                                            MinimumHeightRequest="100"
+                                            Margin="8,0"
+                                            />
+
+                                        <!--Botones de accion-->
+                                        <HorizontalStackLayout WidthRequest="100" HorizontalOptions="Center">
+                                            <ImageButton
+                                                Style="{StaticResource Icon}"
+                                                x:Name="btnEliminar"
+                                                Source="trash.png"
+                                                Margin="0"
+                                                IsVisible="{Binding Activo}"
+                                                Command="{Binding Source={x:Reference FotosView},Path=BindingContext.EliminarFotoCommand}"
+                                                CommandParameter="{x:Reference btnEliminar}"
+                                                />
+
+                                            <ImageButton
+                                                Style="{StaticResource Icon}"
+                                                x:Name="btnHabilitar"
+                                                Source="reset.png"
+                                                Margin="0"
+                                                IsVisible="{Binding Descargada}"
+                                                Command="{Binding Source={x:Reference FotosView},Path=BindingContext.HabilitarFotoCommand}"
+                                                CommandParameter="{x:Reference btnHabilitar}"
+                                                />
+                                        </HorizontalStackLayout>
+                                    </StackLayout>
+
+                                    <BoxView HeightRequest="0.5" BackgroundColor="LightSlateGray"/>
+                                </StackLayout>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </StackLayout>
+            </ScrollView>
+
+            <Label Text="No hay imagenes disponibles para este registro." IsVisible="{Binding NoImagenes}" Style="{StaticResource SubHeadline}" Margin="8"/>
+        </StackLayout>
+    </ScrollView>
+</ContentPage>

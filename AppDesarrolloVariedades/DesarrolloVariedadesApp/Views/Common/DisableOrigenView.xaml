@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DesarrolloVariedadesApp.Views.Common.DisableOrigenView"
+             Title="Deshabilitar Origen">
+
+    <ScrollView Orientation="Vertical" Margin="8">
+        <StackLayout>
+            <!--Barra Superior-->
+            <HorizontalStackLayout HorizontalOptions="Center" Margin="0,8">
+                <Label Text="Deshabilitar Origen" FontAttributes="Bold" Style="{StaticResource SubHeadline}" />
+
+                <ImageButton Source="guardar2.png" Style="{StaticResource Icon}" Command="{Binding DesabilitarOrigenCommand}"/>
+            </HorizontalStackLayout>
+
+            <StackLayout BackgroundColor="#EEEEEE" HorizontalOptions="Center">
+                <FlexLayout Direction="Row" JustifyContent="SpaceEvenly" AlignItems="Start" Wrap="Wrap">
+                    <!--Motivo-->
+                    <StackLayout Margin="8">
+                        <Label Text="Motivo de desactivacion" FontAttributes="Bold" />
+
+                        <Picker ItemsSource="{Binding MotivosList}" ItemDisplayBinding="{Binding Descripcion}" SelectedItem="{Binding SelectedMotivo}" >
+                        </Picker>
+                    </StackLayout>
+                    
+                    <!--Imagen-->
+                    <StackLayout Margin="8" HorizontalOptions="StartAndExpand">
+                        <Label Text="Imagen Representativa" FontAttributes="Bold" />
+
+                        <Border HeightRequest="225" WidthRequest="250">
+                            <Grid RowDefinitions="*,Auto">
+                                <Image Aspect="AspectFit" Source="{Binding Url}" />
+
+                                <ImageButton
+                                    Grid.Row="1"
+                                    BackgroundColor="#D2D2D2"
+                                    Source="subir_foto.png"
+                                    HeightRequest="40"
+                                    WidthRequest="250"
+                                    CornerRadius="0"
+                                    Aspect="Center"
+                                    HorizontalOptions="End"
+                                    Command="{Binding TakePhotoCommand}"
+                                    />
+                            </Grid>
+                        </Border>
+                    </StackLayout>                    
+
+                    <!--Comentario-->
+                    <StackLayout HorizontalOptions="Start" Margin="8">
+                        <Label Text="Comentario" HorizontalOptions="Start" FontAttributes="Bold" Margin="0,0,0,8"/>
+
+                        <Border VerticalOptions="StartAndExpand" MinimumHeightRequest="150" WidthRequest="250">
+                            <Editor
+                                Text="{Binding PhotoComment}"
+                                Placeholder="Agregar Comentario..."
+                                FontSize="18"
+                                VerticalOptions="Start"
+                                AutoSize="TextChanges"
+                                MaxLength="150"
+                                TextColor="Black"
+                                />
+                        </Border>
+                    </StackLayout>
+                </FlexLayout>
+            </StackLayout>
+            
+        </StackLayout>
+    </ScrollView>
+</ContentPage>

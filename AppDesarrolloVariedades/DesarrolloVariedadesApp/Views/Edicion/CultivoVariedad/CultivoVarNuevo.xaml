@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DesarrolloVariedadesApp.Views.Edicion.CultivoVariedad.CultivoVarNuevo"
+             xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:controls="clr-namespace:DesarrolloVariedadesApp.Controls">
+
+
+    <StackLayout Margin="8">
+        <!--Datos Variedad-->
+        <StackLayout IsEnabled="{Binding VisibleVariedad}">
+            <!--Barra Superior-->
+            <FlexLayout Direction="Row" JustifyContent="Center" AlignItems="Start" Wrap="Wrap" Margin="0,8">
+                <Label Text="Agregar Variedad" Style="{StaticResource SubHeadline}" HorizontalOptions="Center" />
+
+                <ImageButton Style="{StaticResource Icon}" Source="guardar2.png" Command="{Binding AgregarVariedadCommand}" />
+
+                <ImageButton Style="{StaticResource Icon}" Source="cancel2.png" Command="{Binding LimpiarDataCommand}" />
+            </FlexLayout>
+
+            <!--Datos Variedad-->
+            <StackLayout BackgroundColor="#EEEEEE" Padding="10">
+                <Label Text="Datos Generales" HorizontalOptions="Start" Style="{StaticResource SubHeadline}" />
+
+                <FlexLayout Direction="Row" JustifyContent="SpaceBetween" AlignItems="Start" Wrap="Wrap">
+                    <!--Cultivo-->
+                    <StackLayout Margin="5">
+                        <Label Text="Cultivo:" FontAttributes="Bold" HorizontalOptions="StartAndExpand" />
+
+                        <HorizontalStackLayout>
+                            <Picker
+                                ItemsSource="{Binding CultivoList}"
+                                ItemDisplayBinding="{Binding Descripcion}"
+                                SelectedItem="{Binding SelectedCultivo}"
+                                />
+
+                            <ImageButton Style="{StaticResource Icon}" Source="plus.png" Command="{Binding EnableCultivoCommand}" />
+                        </HorizontalStackLayout>
+                    </StackLayout>
+
+                    <!--Descripcion-->
+                    <StackLayout Margin="5">
+                        <Label Text="Descripcion:" FontAttributes="Bold" HorizontalOptions="Start" />
+
+                        <Border>
+                            <controls:CustomEntry Keyboard="Text" Text="{Binding DescripcionText}" >
+                                <Entry.Behaviors>
+                                    <mct:TextValidationBehavior
+                                            Flags="ValidateOnValueChanged"
+                                            MinimumLength="1"
+                                            MaximumLength="50"
+                                            InvalidStyle="{StaticResource InvalidEntryStyle}"
+                                            ValidStyle="{StaticResource ValidEntryStyle}"
+                                            IsValid="{Binding IsValidDescripcion, Mode=TwoWay}"
+                                            />
+                                </Entry.Behaviors>
+                            </controls:CustomEntry>
+                        </Border>
+                    </StackLayout>
+
+                    <!--NombreInterno-->
+                    <StackLayout Margin="5">
+                        <Label Text="Nombre interno:" FontAttributes="Bold" HorizontalOptions="Start" />
+
+                        <Border>
+                            <controls:CustomEntry Keyboard="Text" Text="{Binding NombreInternoText}" >
+                                <Entry.Behaviors>
+                                    <mct:TextValidationBehavior
+                                            Flags="ValidateOnValueChanged"
+                                            MinimumLength="1"
+                                            MaximumLength="150"
+                                            InvalidStyle="{StaticResource InvalidEntryStyle}"
+                                            ValidStyle="{StaticResource ValidEntryStyle}"
+                                            IsValid="{Binding IsValidDescripcion, Mode=TwoWay}"
+                                            />
+                                </Entry.Behaviors>
+                            </controls:CustomEntry>
+                        </Border>
+                    </StackLayout>
+
+                    <!--Abreviatura-->
+                    <StackLayout Margin="5">
+                        <Label Text="Abreviatura:" FontAttributes="Bold" HorizontalOptions="StartAndExpand" />
+
+                        <Border>
+                            <controls:CustomEntry Keyboard="Text" Text="{Binding AbreviaturaText}" >
+                                <Entry.Behaviors>
+                                    <mct:TextValidationBehavior
+                                            Flags="ValidateOnValueChanged"
+                                            MinimumLength="1"
+                                            MaximumLength="20"
+                                            InvalidStyle="{StaticResource InvalidEntryStyle}"
+                                            ValidStyle="{StaticResource ValidEntryStyle}"
+                                            IsValid="{Binding IsValidAbreviatura, Mode=TwoWay}"
+                                            />
+                                </Entry.Behaviors>
+                            </controls:CustomEntry>
+                        </Border>
+                    </StackLayout>
+
+                    <!--Organica-->
+                    <StackLayout Margin="5">
+                        <Label Text="Organica:" FontAttributes="Bold" HorizontalOptions="StartAndExpand" />
+
+                        <CheckBox IsChecked="{Binding IsOrganica}"/>
+                    </StackLayout>
+                </FlexLayout>
+            </StackLayout>
+        </StackLayout>
+
+        <BoxView Color="LightSlateGray" HeightRequest="1" HorizontalOptions="FillAndExpand" VerticalOptions="Center" Margin="8" IsVisible="{Binding VisibleCultivo}"/>
+
+        <!--Datos Cultivo-->
+        <StackLayout IsVisible="{Binding VisibleCultivo}">
+            <!--Barra Superior-->
+            <FlexLayout Direction="Row" JustifyContent="Start" AlignItems="Start" Wrap="Wrap">
+                <Label Text="Agregar Cultivo" Style="{StaticResource SubHeadline}" HorizontalOptions="Center" />
+
+                <ImageButton Style="{StaticResource Icon}" Source="guardar2.png" Command="{Binding AgregarCultivoCommand}" />
+
+                <ImageButton Style="{StaticResource Icon}" Source="cancel2.png" Command="{Binding ReturnVariedadCommand}" />
+            </FlexLayout>
+
+            <!--Datos Cultivo-->
+            <StackLayout BackgroundColor="#EEEEEE" Margin="8" Padding="0" HorizontalOptions="StartAndExpand">
+                <Label Text="Datos Generales" Style="{StaticResource SubHeadline}" HorizontalOptions="Start" Margin="8"/>
+
+                <!--Descripcion-->
+                <StackLayout Margin="8">
+                    <Label Text="Descripcion:" FontAttributes="Bold" HorizontalOptions="Start" Margin="0,8"/>
+
+                    <Border>
+                        <controls:CustomEntry Keyboard="Text" Text="{Binding CultivoText}" >
+                            <Entry.Behaviors>
+                                <mct:TextValidationBehavior
+                                        Flags="ValidateOnValueChanged"
+                                        MinimumLength="1"
+                                        MaximumLength="150"
+                                        InvalidStyle="{StaticResource InvalidEntryStyle}"
+                                        ValidStyle="{StaticResource ValidEntryStyle}"
+                                        IsValid="{Binding IsValidCultivo, Mode=TwoWay}"
+                                        />
+                            </Entry.Behaviors>
+                        </controls:CustomEntry>
+                    </Border>
+                </StackLayout>
+            </StackLayout>
+        </StackLayout>
+    </StackLayout>
+</ContentView>

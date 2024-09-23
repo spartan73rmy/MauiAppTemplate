@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DesarrolloVariedadesApp.Views.Configuracion.Impresoras.ImpresorasConfigView"
+             Title="Impresoras Config"
+             x:Name="ImpresorasList">
+
+    
+    <StackLayout>
+
+
+        <StackLayout HorizontalOptions="Center">
+            <Label       
+                Text="Impresora:"
+                FontAttributes="Bold"
+                HorizontalTextAlignment="Start"
+                />
+            <HorizontalStackLayout >
+                <Border WidthRequest="250">
+                    <Label
+                    Text="{Binding SelectedImpresora}"
+                    />
+                </Border>
+            
+                <ImageButton  
+                    Style="{StaticResource Icon}"
+                    Source="reload.png"  
+                    Command="{Binding StartScannerCommand}"
+                    />
+
+            </HorizontalStackLayout>
+        </StackLayout>
+        <Label 
+                Text="Dispositivos"
+                BackgroundColor="#EEEEEE"
+                HeightRequest="50"
+                Margin="10,20,10,0"
+                />
+        <ScrollView>
+            <CollectionView            
+                ItemsSource="{Binding BluetoothDevices}"
+                SelectionMode="Single"
+                SelectedItem="{Binding SelectedImpresora}"
+            Margin="10"
+                >
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <StackLayout >
+
+                        <Grid ColumnDefinitions="*,Auto" Margin="5">
+                            
+                            <Label
+                            Text="{Binding Name}" 
+                                Grid.Column="0"
+                            />
+                            <StackLayout  Grid.Column="1">
+                                <Button 
+                                    x:Name="btnImpresora"
+                                    Text="Seleccionar"
+                                    Command="{Binding Source={x:Reference ImpresorasList},Path=BindingContext.SelectCommand}"
+                                    CommandParameter="{x:Reference btnImpresora}"
+                                />
+                                
+                            </StackLayout>
+                        </Grid>
+                        
+                        <BoxView HeightRequest="0.5" BackgroundColor="LightSlateGray"/>
+                    </StackLayout>
+
+
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+        </ScrollView>
+    </StackLayout>
+
+</ContentPage>

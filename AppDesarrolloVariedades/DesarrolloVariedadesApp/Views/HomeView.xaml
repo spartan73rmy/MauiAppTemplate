@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DesarrolloVariedadesApp.Views.HomeView"
+             xmlns:controls="clr-namespace:DesarrolloVariedadesApp.Controls"
+             Title="{Binding UserName}"
+             >
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem IconImageSource="update.png" Order="Primary" Text="Actualizar" Command="{Binding ActualizarDataCommand}"/>
+        <ToolbarItem IconImageSource="upload.png" Order="Primary" Text="Subir" Command="{Binding SubirDataCommand}"/>        
+    </ContentPage.ToolbarItems>
+
+    <ScrollView>
+        <StackLayout>
+            <FlexLayout BackgroundColor="#EEEEEE" Direction="Row" JustifyContent="SpaceEvenly" AlignItems="Center" Wrap="Wrap" MinimumHeightRequest="45" HorizontalOptions="FillAndExpand">
+                <HorizontalStackLayout Margin="5">
+                    <Label Text="Pendientes: " FontAttributes="Bold"/>
+
+                    <Label Text="{Binding Pendientes}" />
+
+                    <ImageButton  
+                        Style="{StaticResource Icon}"
+                        HorizontalOptions="CenterAndExpand"
+                        Source="listicon.png"
+                        Command="{Binding VerPendientesCommand}"
+                        Margin="2,0"
+                        />
+                    
+                    <ImageButton
+                        Style="{StaticResource Icon}"                   
+                        Source="compartir.png"
+                        Command="{Binding DescargarJsonCommand}"
+                        Aspect="Fill"
+                        Margin="2,0"
+                        />
+                </HorizontalStackLayout>
+
+                <HorizontalStackLayout Margin="5">
+                    <Label Text="Actualizacion: " FontAttributes="Bold" />
+
+                    <Label Text="{Binding UltimaActualizacion}" />
+                </HorizontalStackLayout>
+            </FlexLayout>
+
+
+            <!--BARRA DE BUSQUEDA-->
+            <Grid ColumnDefinitions="*,auto" Padding="2">
+                <Border Grid.Column="0" VerticalOptions="Center" HorizontalOptions="FillAndExpand">
+                    <controls:CustomEntry Text="{Binding EntryLote}" Placeholder="Buscar..." PlaceholderColor="Gray"/>
+                </Border>
+
+
+                <HorizontalStackLayout Grid.Column="1" HorizontalOptions="FillAndExpand">
+                    <ImageButton    
+                        Style="{StaticResource Icon}"
+                        Source="search1.png"
+                        Command="{Binding BuscarDataCommand}"
+                        CommandParameter="{Binding EntryLote}"
+                        Margin="0"
+                        />
+
+                    <ImageButton    
+                        Style="{StaticResource Icon}"
+                        Source="camera1.png"     
+                        Command="{Binding EscanearCodigoQRCommand}"
+                        />
+                </HorizontalStackLayout>
+
+            </Grid>
+
+            <FlexLayout Direction="Row" JustifyContent="SpaceEvenly" Wrap="Wrap" IsEnabled="{Binding Cargando}" Margin="10">
+                <!--Accesso Reportes-->
+                <StackLayout Margin="5" IsVisible="{Binding ReportesActivo}">
+                    <ImageButton Source="botonreporte.png" Command="{Binding ChangeReportesCommand}" />
+
+                    <Label Text="Reportes" FontAttributes="Bold" />
+                </StackLayout>
+
+                <!--Accesso Catalogos-->
+                <StackLayout Margin="5" IsVisible="{Binding CatalogosActivo}">
+                    <ImageButton Source="catalogos.png" Command="{Binding ChangeCatalogosCommand}" />
+
+                    <Label Text="Catalogos" FontAttributes="Bold" />
+                </StackLayout>
+            </FlexLayout>
+
+            <ActivityIndicator IsRunning="{Binding Loading}" />
+        </StackLayout>
+    </ScrollView>
+</ContentPage>

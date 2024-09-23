@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DesarrolloVariedadesApp.Views.Edicion.CultivoVariedad.CultivoVarListado"
+             x:Name="ListadoVariedad">
+
+    <StackLayout Margin="10,0">
+        <!--Filtros-->
+        <FlexLayout Direction="Row" JustifyContent="SpaceEvenly" AlignItems="Start" Wrap="Wrap">
+            <StackLayout Margin="5" >
+                <Label Text="Cultivo" FontAttributes="Bold" />
+
+                <Picker
+                    ItemsSource="{Binding CultivoList}"
+                    ItemDisplayBinding="{Binding Descripcion}"
+                    SelectedItem="{Binding SelectedCultivo}"
+                    />
+            </StackLayout>
+
+            <StackLayout Margin="5" >
+                <Label Text="Variedad" FontAttributes="Bold" />
+
+                <Picker
+                    ItemsSource="{Binding VariedadList}"
+                    ItemDisplayBinding="{Binding Descripcion}"
+                    SelectedItem="{Binding SelectedVariedad}"
+                    IsEnabled="{Binding CultivoActivo}"
+                    />
+            </StackLayout>
+        </FlexLayout>
+
+        <Grid RowDefinitions="*" ColumnDefinitions="*">
+            <!--Tabla-->
+            <ScrollView Orientation="Horizontal" HorizontalOptions="Center" IsVisible="{Binding TerminoLoad}" Margin="16">
+                <StackLayout>
+                    <!--Contenido Table-->
+                    <CollectionView ItemsSource="{Binding ListaVariedades}">
+                        <CollectionView.Header>
+                            <StackLayout HeightRequest="50" BackgroundColor="#EEEEEE" VerticalOptions="StartAndExpand" Orientation="Horizontal" >
+                                <Label Text="Codigo" WidthRequest="70" />
+
+                                <Label Text="Variedad" WidthRequest="150" />
+
+                                <Label Text="Cultivo" WidthRequest="200" />
+
+                                <Label Text="Abreviatura" WidthRequest="120" />
+
+                                <Label Text="Organica" WidthRequest="150" />
+
+                                <Label Text="Operaciones" WidthRequest="120" />
+                            </StackLayout>
+                        </CollectionView.Header>
+
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <StackLayout>
+                                    <StackLayout Orientation="Horizontal" MinimumHeightRequest="40" HorizontalOptions="FillAndExpand">
+                                        <Label Text="{Binding Consecutivo}" WidthRequest="70" />
+
+                                        <Label Text="{Binding Descripcion}" WidthRequest="150" />
+
+                                        <Label Text="{Binding Cultivo.Descripcion}" WidthRequest="200" />
+
+                                        <Label Text="{Binding Abreviacion}" WidthRequest="120" />
+
+                                        <Label Text="{Binding Organico}" WidthRequest="150" />
+
+                                        <StackLayout WidthRequest="120">
+                                            <ImageButton
+                                                x:Name="btnModificar"
+                                                Style="{StaticResource Icon}"
+                                                Source="modify.png"
+                                                Margin="0,4"
+                                                HorizontalOptions="CenterAndExpand"
+                                                Command="{Binding Source={x:Reference ListadoVariedad},Path=BindingContext.ModificarDatoCommand}"
+                                                CommandParameter="{x:Reference btnModificar}"
+                                                />
+                                        </StackLayout>
+                                    </StackLayout>
+
+                                    <BoxView HeightRequest="0.5" BackgroundColor="LightSlateGray"/>
+                                </StackLayout>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+
+                    <!--Paginacion-->
+                    <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Margin="10">
+                        <ImageButton
+                             Source="prev.png"
+                             Style="{StaticResource Icon}"
+                             IsEnabled="{Binding PrevPageActive}"
+                             Command="{Binding PrevPageCommand}"
+                             />
+
+                        <Label FontAttributes="Bold" HorizontalOptions="Center" Text="{Binding ActualPageText}" />
+
+                        <ImageButton
+                             Source="next.png"
+                            Style="{StaticResource Icon}"
+                             IsEnabled="{Binding NextPageActive}"
+                             Command="{Binding NextPageCommand}"
+                             />
+                    </StackLayout>
+                </StackLayout>
+            </ScrollView>
+
+            <ActivityIndicator IsRunning="{Binding Loading}" />
+        </Grid>
+    </StackLayout>
+</ContentView>

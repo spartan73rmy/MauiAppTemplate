@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<toolkit:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DesarrolloVariedadesApp.Views.Common.PopupEleccionPresentacion"             
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:Name="PopupView"
+             Color="White"
+             >
+
+    <ScrollView MaximumHeightRequest="300" MaximumWidthRequest="500">
+        <StackLayout Margin="8" HorizontalOptions="FillAndExpand">
+            <!--Titulo-->
+            <Label Text="Presentacion" Style="{StaticResource SubHeadline}" HorizontalOptions="Start" />
+               
+
+
+            <StackLayout HorizontalOptions="FillAndExpand">
+                <!--Descripcion-->
+                <StackLayout Margin="8">
+                    <Label Text="Tipo:" FontAttributes="Bold" HorizontalOptions="StartAndExpand" />
+
+                    <!--Cambia el ItemDisplayBinding-->
+                    <Picker 
+                        ItemsSource="{Binding TiposPresentacionesList}"
+                        ItemDisplayBinding="{Binding Descripcion}"
+                        SelectedItem="{Binding SelectedTipoPresentacion}"
+                        MinimumWidthRequest="150"
+                        />
+                </StackLayout>
+
+                <!--Factor-->
+                <StackLayout Margin="8">
+                    <Label Text="{Binding TipoUnidad}" FontAttributes="Bold" HorizontalOptions="StartAndExpand" />
+
+                    <!--Cambia el ItemDisplayBinding-->
+                    <Picker 
+                        ItemsSource="{Binding FactorPresentacionesList}"
+                        ItemDisplayBinding="{Binding Factor}"
+                        SelectedItem="{Binding SelectedFactor}"
+                        IsEnabled="{Binding DescripcionActivo}"
+                        MinimumWidthRequest="150"
+                        />
+                </StackLayout>
+            </StackLayout>
+        </StackLayout>
+    </ScrollView>
+</toolkit:Popup>

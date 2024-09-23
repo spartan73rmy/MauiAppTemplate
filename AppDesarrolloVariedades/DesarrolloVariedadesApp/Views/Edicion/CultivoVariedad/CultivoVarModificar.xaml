@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DesarrolloVariedadesApp.Views.Edicion.CultivoVariedad.CultivoVarModificar"
+             xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:controls="clr-namespace:DesarrolloVariedadesApp.Controls"
+             >
+
+    <StackLayout Margin="10">
+        <!--Barra Superior-->
+        <FlexLayout Direction="Row" JustifyContent="Center" AlignItems="Start" Wrap="Wrap" Margin="0,8">
+            <Label Text="Modificar variedad" Style="{StaticResource SubHeadline}" Grid.Column="0" />
+
+            <ImageButton Style="{StaticResource Icon}" Source="guardar2.png" Command="{Binding ModicarVariedadCommand}" />
+
+            <ImageButton Style="{StaticResource Icon}" Source="cancel2.png" Command="{Binding ReturnMainCommand}" />
+        </FlexLayout>
+
+        <!--Datos Variedad-->
+        <StackLayout BackgroundColor="#EEEEEE" Padding="10">
+            <Label Text="Datos Generales" Style="{StaticResource SubHeadline}" HorizontalOptions="Start" />
+
+            <FlexLayout Direction="Row" JustifyContent="SpaceBetween" AlignItems="Start" Wrap="Wrap">
+
+                
+                <!--Input Cultivo-->
+                <StackLayout Margin="5">
+                    <Label Text="Cultivo:" FontAttributes="Bold" HorizontalOptions="Start" />
+
+                    <Border IsEnabled="False">
+                        <Label Text="{Binding InputCultivoText}" />
+                    </Border>
+                </StackLayout>
+
+                <!--Input Descripcion-->
+                <StackLayout Margin="5">
+                    <Label Text="Descripcion:" FontAttributes="Bold" HorizontalOptions="Start" />
+
+                    <Border IsEnabled="False">
+                        <Label Text="{Binding DescripcionText}" />
+                    </Border>
+                </StackLayout>
+
+                <!--nombreInterno-->
+                <StackLayout Margin="5">
+                    <Label Text="Nombre Interno:" FontAttributes="Bold" HorizontalOptions="Start" />
+
+                    <Border IsEnabled="False">
+                        <Label Text="{Binding NombreInterno}" />
+                    </Border>
+                </StackLayout>
+
+                <!--Abreviatura-->
+                <StackLayout Margin="5">
+                    <Label Text="Abreviatura:" FontAttributes="Bold" HorizontalOptions="Start" />
+
+                    <Border>
+                        <controls:CustomEntry Keyboard="Text" Text="{Binding AbreviaturaText}" >
+                            <Entry.Behaviors>
+                                    <mct:TextValidationBehavior
+                                         Flags="ValidateOnValueChanged"
+                                         MinimumLength="1"
+                                         MaximumLength="10"
+                                         InvalidStyle="{StaticResource InvalidEntryStyle}"
+                                         ValidStyle="{StaticResource ValidEntryStyle}"
+                                         IsValid="{Binding IsValidAbreviatura, Mode=TwoWay}"
+                                         />
+                                </Entry.Behaviors>
+                        </controls:CustomEntry>
+                    </Border>
+                </StackLayout>
+
+                <!--Organica-->
+                <StackLayout Margin="5">
+                    <Label Text="Organica:" FontAttributes="Bold" HorizontalOptions="StartAndExpand" />
+                    
+                    <CheckBox IsChecked="{Binding IsOrganica}"/>
+                </StackLayout>
+            </FlexLayout>
+        </StackLayout>
+    </StackLayout>
+</ContentView>

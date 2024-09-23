@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DesarrolloVariedadesApp.Views.ManejoFotografias.HistorialDesarrolloView"
+             x:Name="HistorialView"
+             Title="Historial de Desarrollo">
+
+    <ScrollView>
+        <StackLayout Margin="8">
+            <Label Text="{Binding Titulo}"  Style="{StaticResource SubHeadline}" />
+            
+            <ScrollView Orientation="Horizontal" HorizontalOptions="Center" Margin="16">
+                <StackLayout>
+                    <!--Contenido Tabla-->
+                    <CollectionView ItemsSource="{Binding ListaImagenes}">
+                        <CollectionView.Header>
+                            <StackLayout HeightRequest="50" BackgroundColor="#EEEEEE" VerticalOptions="StartAndExpand" Orientation="Horizontal" >
+                                <Label Text="Motivo" WidthRequest="160" />
+
+                                <Label Text="Fotografia" WidthRequest="170" />
+
+                                <Label Text="Comentario" WidthRequest="170" />
+                                
+                                <Label Text="Fecha Registro" WidthRequest="130" />
+                            </StackLayout>
+                        </CollectionView.Header>
+
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <StackLayout>
+                                    <StackLayout Orientation="Horizontal" MinimumHeightRequest="40" HorizontalOptions="FillAndExpand">
+                                        <Label Text="{Binding TipoAccion}" WidthRequest="160" />
+
+                                        <Image 
+                                            x:Name="Elemento"
+                                            Aspect="AspectFit" 
+                                            Source="{Binding FullPath}" 
+                                            WidthRequest="160"
+                                            HeightRequest="130"
+                                            HorizontalOptions="Center"
+                                            Margin="8"
+                                            >
+                                            <Image.GestureRecognizers>
+                                                <TapGestureRecognizer 
+                                                    CommandParameter="{x:Reference Elemento}" 
+                                                    Command="{Binding Source={x:Reference HistorialView},Path=BindingContext.ImagenClickedCommand}"
+                                                    />
+                                            </Image.GestureRecognizers>
+                                        </Image>
+
+                                        <Label Text="{Binding Comentario}" WidthRequest="170" />
+
+                                        <Label Text="{Binding FechaRegistro}" WidthRequest="130" />
+                                    </StackLayout>
+                                    
+                                    <BoxView HeightRequest="0.5" BackgroundColor="LightSlateGray"/>
+                                </StackLayout>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+
+                    <!--Paginacion-->
+                    <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Margin="10">
+                        <ImageButton
+                            Source="prev.png"
+                            Style="{StaticResource Icon}"
+                            IsEnabled="{Binding PrevPageActive}"
+                            Command="{Binding PrevPageCommand}"
+                            />
+
+                        <Label FontAttributes="Bold" Text="{Binding ActualPageText}" />
+
+                        <ImageButton
+                            Source="next.png"
+                            Style="{StaticResource Icon}"
+                            IsEnabled="{Binding NextPageActive}"
+                            Command="{Binding NextPageCommand}"
+                            />
+                    </StackLayout>
+                </StackLayout>
+            </ScrollView>
+        </StackLayout>
+    </ScrollView>
+</ContentPage>
